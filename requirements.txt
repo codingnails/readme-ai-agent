@@ -1,0 +1,5 @@
+python-dotenv
+pydantic
+requests
+GitPython
+pytest

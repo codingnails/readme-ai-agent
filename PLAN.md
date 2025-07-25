@@ -5,6 +5,22 @@ Build a hybrid multi-agent system to automatically generate professional README 
 
 ---
 
+## Pydantic Integration
+- Defines **structured models** (e.g., `FunctionInfo`, `ClassInfo`, `ModuleInfo`, `RepoSummary`) for code data.
+- Ensures **type-safe communication** between agents and validates extracted JSON.
+- Simplifies debugging and future API exposure (FastAPI-ready).
+
+---
+
+## MCP Integration (Future)
+- Standardizes how agents interact with **external tools and APIs**:
+  - File system access
+  - Baseten-hosted inference endpoints
+  - Hugging Face models
+- Makes architecture **model-agnostic** and easier to expand to new agents.
+
+---
+
 ## Agents
 
 | Agent Name          | Type       | Function                                      |
@@ -23,10 +39,10 @@ Build a hybrid multi-agent system to automatically generate professional README 
 ### Phase 1: Repo Fetching & Static Code Extraction
 - Implement Repo Fetcher and Code Extractor agents.
 - Extract structured code info (functions, classes, docstrings) using Python's `ast`.
-- Output JSON summaries per repo.
+- Validate extracted data with Pydantic and output JSON summaries.
 
 ### Phase 2: Semantic Extraction with AI
-- Develop Semantic Extractor to generate human-readable summaries using OpenAI GPT.
+- Develop Semantic Extractor to generate human-readable summaries using GPT, Claude, or Hugging Face models.
 - Design effective prompts and handle API integration.
 
 ### Phase 3: README Generation
@@ -34,7 +50,7 @@ Build a hybrid multi-agent system to automatically generate professional README 
 - Include sections like Overview, Installation, Usage, Contribution, License.
 
 ### Phase 4: Orchestration & Review
-- Create Orchestrator agent for pipeline management.
+- Create Orchestrator agent for pipeline management and future MCP integration.
 - (Optional) Add Review & Refine agent to improve README quality.
 - Add error handling, logging, and usability improvements.
 
@@ -42,7 +58,7 @@ Build a hybrid multi-agent system to automatically generate professional README 
 
 ## Additional Notes
 - Start with Python codebases; extend language support later.
-- Use modular design with clear input/output formats (JSON).
+- Use modular design with **clear input/output formats (Pydantic models + JSON)**.
 - Prioritize MVP in early phases; iterate for improvements.
 - Open-source the project for community feedback and contributions.
 

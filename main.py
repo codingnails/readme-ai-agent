@@ -8,6 +8,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def main():
+    """
+    Main entry point for the project.
+
+    Clones the specified repository, extracts code information, generates semantic
+    summaries, and generates a README.md file. Finally, it cleans up the cloned
+    repository.
+
+    """
     repo_url = "https://github.com/codingnails/pdf-assistant-rag-weaviate"
 
     # Step 1: Clone the repo
@@ -16,7 +24,7 @@ def main():
     print(f"Repo cloned to: {local_path}")
 
     # Step 2: Extract code info
-    extractor = CodeExtractor(local_path)
+    extractor = CodeExtractor(local_path,repo_url)
     repo_summary = extractor.extract()
 
     # Phase 2: Semantic Summaries

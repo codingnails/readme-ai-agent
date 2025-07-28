@@ -11,8 +11,9 @@ class CodeExtractor:
     Parses Python files in a repo directory and extracts structured info about classes and functions.
     """
 
-    def __init__(self, repo_path: str):
+    def __init__(self, repo_path: str, real_path: str):
         self.repo_path = repo_path
+        self.real_path = real_path
         self.functions: List[FunctionInfo] = []
         self.classes: List[ClassInfo] = []
 
@@ -27,7 +28,8 @@ class CodeExtractor:
                     self._parse_file(filepath)
 
         # Repo name from path basename (can improve later)
-        repo_name = os.path.basename(os.path.normpath(self.repo_path))
+        repo_name_with_git = os.path.basename(self.real_path.rstrip('/'))
+        repo_name, ext = os.path.splitext(repo_name_with_git)
 
         return RepoSummary(
             repo_name=repo_name,

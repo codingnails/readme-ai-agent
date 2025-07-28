@@ -1,4 +1,3 @@
-# app/agents/code_extractor.py
 import ast
 import os
 from typing import List
@@ -46,7 +45,6 @@ class CodeExtractor:
         try:
             tree = ast.parse(source)
         except SyntaxError:
-            # Skip files with syntax errors for now
             return
 
         for node in ast.iter_child_nodes(tree):
@@ -65,7 +63,7 @@ class CodeExtractor:
         args = [arg.arg for arg in node.args.args]
         docstring = ast.get_docstring(node)
         start_line = node.lineno
-        end_line = getattr(node, 'end_lineno', start_line)  # Python 3.8+
+        end_line = getattr(node, 'end_lineno', start_line) 
 
         return FunctionInfo(
             name=name,

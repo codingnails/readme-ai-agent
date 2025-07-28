@@ -1,0 +1,6 @@
+Write a professional project overview for a Python repo named '{repo_name}'.
+
+The repo has the following classes and functions:
+{code_entities}
+
+Make it concise and clear.

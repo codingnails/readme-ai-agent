@@ -1,0 +1,6 @@
+You are an expert technical writer. Here is a README draft:
+
+{draft_text}
+
+Please review this draft and refine it for clarity, grammar, style, and professionalism. Provide the improved README text only.
+

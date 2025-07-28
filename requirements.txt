@@ -3,3 +3,7 @@ pydantic
 requests
 GitPython
 pytest
+openai
+langchain-openai
+langchain_community
+streamlit

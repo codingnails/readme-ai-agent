@@ -8,3 +8,4 @@ class FunctionInfo(BaseModel):
     docstring: Optional[str]
     start_line: int
     end_line: int
+    summary: Optional[str] = None

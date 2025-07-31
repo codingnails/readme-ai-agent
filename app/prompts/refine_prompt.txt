@@ -1,6 +1,17 @@
-You are an expert technical writer. Here is a README draft:
+Refine the following README draft using the provided feedback. 
+Return ONLY the improved README in Markdown format — do not include review notes, explanations, or any extra commentary.
 
-{draft_text}
+Previous version:
+{previous_readme}
 
-Please review this draft and refine it for clarity, grammar, style, and professionalism. Provide the improved README text only.
+Review feedback:
+{review_report}
 
+Checklist:
+- Address feedback
+- Remove duplicate headings/code
+- Ensure installation and usage sections
+- Remove empty sections
+- Proper Markdown formatting
+- **Include license section only if provided; otherwise, omit it completely**
+- **Include badges only if provided; otherwise, omit it completely**

@@ -7,3 +7,4 @@ openai
 langchain-openai
 langchain_community
 streamlit
+langgraph

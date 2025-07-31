@@ -1,24 +1,17 @@
-You are reviewing a README draft refinement. Here is the original draft:
+You are reviewing the refined README. Provide feedback ONLY as bullet points.
 
+Original draft:
 {draft_text}
 
-Here is the refined README:
-
+Refined README:
 {refined_text}
 
-During review also look for following:
-- Check for duplicate headings; if found, remove or rename duplicates.
-- Ensure no duplicate code blocks; if any, remove or rename accordingly.
-- Confirm the README includes a clear feature introduction; add one if missing.
-- Verify installation instructions are present; add them if not.
-- Verify usage instructions are included; add them if missing.
-- Remove any empty sections, paragraphs, or code blocks.
-- Make sure all code blocks and commands are properly formatted.
-- Check for badges like build status or license and include them if absent.
+Checklist:
+- No duplicate headings/code
+- Clear feature intro
+- Installation and usage present
+- Proper Markdown formatting
+- **Include license section only if provided; otherwise, omit it completely**
+- **Include badges only if provided; otherwise, omit it completely**
 
-Write a brief report describing:
-- What was improved (clarity, grammar, structure)
-- Any major changes
-- Suggestions for future improvements
-
-Format this as bullet points.
+If no issues found, say: "No issues found."

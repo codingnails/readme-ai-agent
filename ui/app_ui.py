@@ -3,8 +3,11 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import streamlit as st
-from app.agents.readme_generator import ReadmeGenerator
-from app.agents.code_extractor import CodeExtractor
+from app.agents.readme_agent import ReadmeGenerator
+from app.core.code_extractor import CodeExtractor
+from app.core.repo_fetcher import RepoFetcher
+from app.utils.semantic_extractor import SemanticExtractor
+from app.utils.agent_graph import run_readme_agent
 import tempfile
 import shutil
 import git
@@ -43,15 +46,6 @@ def set_dark_theme():
         unsafe_allow_html=True
     )
 
-def clone_repo(repo_url):
-    temp_dir = tempfile.mkdtemp(prefix="repo_")
-    try:
-        git.Repo.clone_from(repo_url, temp_dir)
-        return temp_dir
-    except Exception as e:
-        st.error(f"Failed to clone repo: {e}")
-        shutil.rmtree(temp_dir)
-        return None
 
 def main():
     set_dark_theme()
@@ -66,16 +60,55 @@ def main():
             return
 
         with st.spinner("Cloning repo and generating README..."):
-            local_path = clone_repo(repo_url)
+            # Step 1: Clone the repo
+            fetcher = RepoFetcher()
+            local_path = fetcher.fetch_repo(repo_url)
             if not local_path:
                 return
 
             extractor = CodeExtractor(local_path,repo_url)
             repo_summary = extractor.extract()
 
-            readme_gen = ReadmeGenerator()
-            readme_md, review_report = readme_gen.generate_readme_markdown(repo_summary, local_path)
+            # Phase 2: Semantic Summaries (one-time process)
+            api_key = os.getenv("OPENAI_API_KEY")
+            semantic_extractor = SemanticExtractor(api_key)
+            enriched_summary = semantic_extractor.summarize(repo_summary)
 
+            # --- Replace manual loop with agent invocation ---
+            readme_md, review_report = run_readme_agent(enriched_summary)
+
+
+            # Initialize README generator and start refine-review loop
+            # readme_gen = ReadmeGenerator()
+            # readme_md = None
+            # review_report = None
+            # max_iterations = 3
+            # current_iteration = 0
+
+            # while current_iteration < max_iterations:
+            #     print(f"\nStarting refine-review iteration {current_iteration + 1}/{max_iterations}")
+        
+            #     # Generate or refine README
+            #     readme_md, review_report, quality_score = readme_gen.generate_readme_markdown(
+            #         enriched_summary,
+            #         local_path,
+            #         previous_readme=readme_md,
+            #         review_report=review_report
+            #     )
+            
+            #     # Save the current version
+            #     readme_path = os.path.join(local_path, f"README_v{current_iteration + 1}.md")
+            #     with open(readme_path, "w", encoding="utf-8") as f:
+            #         f.write(readme_md)
+        
+            #     print(f"README version {current_iteration + 1} generated at: {readme_path}")
+        
+            #     # Check if review report indicates sufficient qualitys
+            #     if quality_score >= 0.9:
+            #         print("README quality is sufficient. Ending refine-review loop.")
+            #         break
+            #     current_iteration += 1
+            
             tab1, tab2 = st.tabs(["Generated README.md", "AI Agent Review Report"])
 
             with tab1:

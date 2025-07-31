@@ -3,4 +3,13 @@ Write a professional project overview for a Python repo named '{repo_name}'.
 The repo has the following classes and functions:
 {code_entities}
 
+Include:
+- What the project does
+- Key features
+- Technical components
+- Keep it concise and formatted in Markdown
+- **Include license section only if provided; otherwise, omit it completely**
+- **Include badges only if provided; otherwise, omit it completely**
+
+
 Make it concise and clear.
